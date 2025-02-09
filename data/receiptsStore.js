@@ -3,12 +3,6 @@ const {v4: uuidv4} = require('uuid');
 // Temporary in-memory storage map
 const receipts = {};
 
-// User
-// {
-//      key=userId, value = submitted count
-// {
-const users = {};
-
 /**
  * Check if the receipt ID exists in the receipts object.
  * @param {string} receiptId - The receipt ID.
@@ -38,11 +32,11 @@ function validateReceipt(receipt) {
         throw new Error('The receipt is invalid.');
     }
 
-    if (!receipt.retailer || !receipt.total || !receipt.items || !receipt.purchaseDate || !receipt.purchaseTime || !receipt.userId) {
+    if (!receipt.retailer || !receipt.total || !receipt.items || !receipt.purchaseDate || !receipt.purchaseTime) {
         throw new Error('The receipt is invalid.');
     }
 
-    if (typeof receipt.retailer !== 'string' || typeof receipt.total !== 'string' || !Array.isArray(receipt.items) || typeof receipt.purchaseDate !== 'string' || typeof receipt.purchaseTime !== 'string' || typeof receipt.userId !== 'string') {
+    if (typeof receipt.retailer !== 'string' || typeof receipt.total !== 'string' || !Array.isArray(receipt.items) || typeof receipt.purchaseDate !== 'string' || typeof receipt.purchaseTime !== 'string') {
         throw new Error('The receipt is invalid.');
     }
 
@@ -116,17 +110,6 @@ function calculatePoints(receipt) {
     if (hours >= 14 && hours < 16) {
         points += 10;
     }
-
-    // award bonus points for new users: 1000 points for the first receipt, 500 points for the second receipt and 250 points for the third receipt.
-    if (!users.keys.includes(receipt.userId)) {
-        users.userId = 1;
-        points += 1000
-    } else {
-        const count = users.userId++;
-        if (count === 2) points += 500;
-        if (count === 3) points += 250;
-    }
-
 
     return points;
 }
