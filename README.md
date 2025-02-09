@@ -3,8 +3,8 @@
 ```
 fetch_receipt-processor-challenge/
 │
-├── routes/                  # API routes (modularized)
-├── data/                    # Potentially holds sample receipt data
+├── routes/                                    # API routes (modularized)
+├── data/                                      # Potentially holds sample receipt data
 └── receipt-processor-challenge-description/   # Challenge description and requirements
 ```
 
